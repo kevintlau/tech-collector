@@ -7,6 +7,7 @@ class Tech(models.Model):
     ordering = ["name"] # order alphabetically
 
   name = models.CharField(max_length=50)
+  brand = models.CharField(max_length=50)
   category = models.CharField(max_length=20)
   description = models.TextField(max_length=250)
   release_year = models.IntegerField("release year")
@@ -15,3 +16,6 @@ class Tech(models.Model):
 
   def __str__(self):
     return self.name
+
+  def get_absolute_url(self):
+    return reverse("tech_detail", kwargs={ "pk": self.id })

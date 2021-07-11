@@ -18,7 +18,17 @@
 </form>
 
 <script>
-  // TODO: use jQuery to fix checkbox
+  // cached element references
+  const checkboxEl = $("#id_working");
+  const checkboxTdEl = checkboxEl.parent();
+  const labelEl = $("<label />");
+
+  // makes checkbox compatible with Materialize
+  // need to wrap checkbox inside a label for it to be clickable
+  checkboxTdEl.append(labelEl);
+  checkboxEl.detach().appendTo(labelEl);
+  checkboxEl.addClass("filled-in");
+  labelEl.append("<span></span>");
 
 </script>
 {% endblock %}
