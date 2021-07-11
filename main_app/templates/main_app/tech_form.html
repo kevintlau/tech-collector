@@ -8,17 +8,20 @@
   <h1>Add Tech</h1>
 {% endif %}
 
-<form action="" method="post">
-  <!-- csrf token needed to submit post requests -->
-  {% csrf_token %} 
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input class="btn" type="submit" value="Submit">
-</form>
+<div class="card form-card">
+  <form class="action="" method="post">
+    <!-- csrf token needed to submit post requests -->
+    {% csrf_token %} 
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input class="btn" type="submit" value="Submit">
+  </form>
+</div>
 
 <script>
   // cached element references
+  const dateEl = $("#id_purchase_date");
   const checkboxEl = $("#id_working");
   const checkboxTdEl = checkboxEl.parent();
   const labelEl = $("<label />");
@@ -29,6 +32,14 @@
   checkboxEl.detach().appendTo(labelEl);
   checkboxEl.addClass("filled-in");
   labelEl.append("<span></span>");
+
+  // add a materialize datepicker for purchase date UI
+  M.Datepicker.init(dateEl, {
+    format: "yyyy-mm-dd",
+    default: new Date(),
+    setDefault: true,
+    autoClose: true
+  })
 
 </script>
 {% endblock %}
