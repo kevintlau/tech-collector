@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tech Details</h1>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ object.name }}</span>
+      <p>Brand: {{ object.brand }}</p>
+      <p>Category: {{ object.category }}</p>
+      <p>Release Year: {{ object.release_year }}</p>
+      <p>Purchase Date: {{ object.purchase_date }}</p>
+      <p>Description: {{ object.description }}</p>
+    {% if object.working %}
+      <p class="green-text">Still working!!</p>
+    {% else %}
+      <p class="red-text">Oh no, it's broken!!</p>
+    {% endif %}
+    </div>
+    <div class="card-action">
+      <a href="{% url 'tech_update' object.id %}">Edit</a>
+      <a href="{% url 'tech_delete' object.id %}">Delete</a>
+    </div>
+  </div>
+{% endblock %}
