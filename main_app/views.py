@@ -15,16 +15,16 @@ def home(request):
 def about(request):
   return render(request, "about.html")
 
-def add_usage(request, tech_id):
+def add_usage(request, pk):
   # instantiate a new form object using the key-value pairs from the post req
   form = UsageForm(request.POST)
   # check if the inputs are valid
   if form.is_valid():
     # create in-memory representation of the form object
     new_usage = form.save(commit=False)
-    new_usage.tech_id = tech_id
+    new_usage.tech_id = pk
     new_usage.save()
-  return redirect("tech_detail", pk=tech_id)
+  return redirect("tech_detail", pk=pk)
 
 class TechList(ListView):
   model = Tech
@@ -32,6 +32,7 @@ class TechList(ListView):
 #   model = Tech
 def tech_detail(request, pk):
   tech = Tech.objects.get(id=pk)
+  all_users = User.objects.all()
   # get the users that the tech doesn't belong to
   unlinked_users = User.objects.exclude(
     # exclude all users where user id is inside the tech's owner list
@@ -42,7 +43,7 @@ def tech_detail(request, pk):
   return render(request, "tech/detail.html", { 
     "object": tech,
     "usage_form": usage_form,
-    # add toys to be displayed in selector list
+    "all_users": all_users,
     "unlinked_users": unlinked_users,
   })
 class TechCreate(CreateView):
