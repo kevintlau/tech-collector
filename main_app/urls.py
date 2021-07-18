@@ -7,7 +7,7 @@ urlpatterns = [
 
   path("tech/", views.TechList.as_view(), name="tech_index"),
   path("tech/<int:pk>/add_usage", views.add_usage, name="add_usage"),
-  path("tech/<int:pk>/", views.TechDetail.as_view(), name="tech_detail"),
+  path("tech/<int:pk>/", views.tech_detail, name="tech_detail"),
   path("tech/create/", views.TechCreate.as_view(), name="tech_create"),
   path("tech/<int:pk>/update", views.TechUpdate.as_view(), name="tech_update"),
   path("tech/<int:pk>/delete", views.TechDelete.as_view(), name="tech_delete"),

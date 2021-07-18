@@ -26,6 +26,7 @@ class Tech(models.Model):
   release_year = models.IntegerField("release year")
   purchase_date = models.DateField("purchase date")
   working = models.BooleanField(default=True)
+  users = models.ManyToManyField(User)
 
   def __str__(self):
     return self.name

@@ -28,12 +28,31 @@ def add_usage(request, tech_id):
 
 class TechList(ListView):
   model = Tech
-class TechDetail(DetailView):
-  model = Tech
+# class TechDetail(DetailView):
+#   model = Tech
+def tech_detail(request, pk):
+  tech = Tech.objects.get(id=pk)
+  # get the users that the tech doesn't belong to
+  unlinked_users = User.objects.exclude(
+    # exclude all users where user id is inside the tech's owner list
+    id__in=tech.users.all().values_list("id")
+  )
+  # instantiate usage form to be rendered in template
+  usage_form = UsageForm()
+  return render(request, "tech/detail.html", { 
+    "object": tech,
+    "usage_form": usage_form,
+    # add toys to be displayed in selector list
+    "unlinked_users": unlinked_users,
+  })
 class TechCreate(CreateView):
   model = Tech
   # create a form using all fields in Model
-  fields = "__all__"
+  fields = [
+    "name", "brand", "category", 
+    "description", "release_year", 
+    "purchase_date", "working"
+  ]
 class TechUpdate(UpdateView):
   model = Tech
   fields = ["name", "category", "description", "working"]
