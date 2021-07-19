@@ -4,26 +4,26 @@
 
   <h1>Tech List</h1>
   
-  {% for tech in object_list %}
-    <div class="card">
-      <a href="{% url 'tech_detail' tech.id %}">
-        <div class="card-content">
-          <span class="card-title">
-            {{ tech.name }}
-          </span>
-          <p>Brand: {{ tech.brand }}</p>
-          <p>Category: {{ tech.category }}</p>
-          <p>Release Year: {{ tech.release_year }}</p>
-          <p>Purchase Date: {{ tech.purchase_date }}</p>
-          <p>Description: {{ tech.description }}</p>
-          {% if tech.working %}
-            <p class="green-text">Still working!!</p>
-          {% else %}
-            <p class="red-text">Oh no, it's broken!!</p>
-          {% endif %}
-        </div>
-      </a>
-    </div>
-  {% endfor %}
+{% for tech in object_list %}
+  <div class="card">
+    <a href="{% url 'tech_detail' tech.id %}">
+      <div class="card-content">
+        <span class="card-title">
+          {{ tech.name }}
+        </span>
+        <p>Brand: {{ tech.brand }}</p>
+        <p>Category: {{ tech.category }}</p>
+        <p>Release Year: {{ tech.release_year }}</p>
+        <p>Purchase Date: {{ tech.purchase_date }}</p>
+        <p>Description: {{ tech.description }}</p>
+        {% if tech.working %}
+          <p class="green-text">Still working!!</p>
+        {% else %}
+          <p class="red-text">Oh no, it's broken!!</p>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+{% endfor %}
 
 {% endblock %}
