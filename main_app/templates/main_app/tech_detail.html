@@ -42,11 +42,63 @@
           {% for usage in object.usage_set.all %}
           <tr>
             <td>{{ usage.date }}</td>
-            <td>{{ usage.user }}</td>
+            <td>
+              <a href="{% url 'users_detail' usage.user.id %}">
+                {{ usage.user }}
+              </a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col s6">
+        <h3>{{ object }}'s Users</h3>
+    {% if object.users.count %}
+      {% for user in object.users.all %}
+        <div class="card">
+          <a href="{% url 'users_detail' user.id %}">
+            <div class="card-content">
+              <span class="card-title">
+                {{ user }}
+              </span>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+        <h5>No users linked</h5>
+    {% endif %}
+    </div>
+    <div class="col s6">
+        <h3>Unlinked Users</h3>
+    {% if unlinked_users.count %}
+      {% for user in unlinked_users.all %}
+        <div class="card">
+          <a href="{% url 'users_detail' user.id %}">
+            <div class="card-content">
+              <span class="card-title">
+                {{ user }}
+              </span>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'assoc_user' object.id user.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+                <!-- <input type="submit" value="Add" class="btn"> -->
+              </form>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+        <h5>{{ object.name }} has all users linked already.</h5>
+    {% endif %}
     </div>
   </div>
 

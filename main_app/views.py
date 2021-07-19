@@ -26,22 +26,26 @@ def add_usage(request, pk):
     new_usage.save()
   return redirect("tech_detail", pk=pk)
 
+def assoc_user(request, tech_pk, user_pk):
+  Tech.objects.get(id=tech_pk).users.add(user_pk)
+  return redirect("tech_detail", pk=tech_pk)
+
 class TechList(ListView):
   model = Tech
-# class TechDetail(DetailView):
-#   model = Tech
+
+# view function needed to add data from other models to the same page
 def tech_detail(request, pk):
-  tech = Tech.objects.get(id=pk)
+  tech_object = Tech.objects.get(id=pk)
   all_users = User.objects.all()
   # get the users that the tech doesn't belong to
   unlinked_users = User.objects.exclude(
     # exclude all users where user id is inside the tech's owner list
-    id__in=tech.users.all().values_list("id")
+    id__in=tech_object.users.all().values_list("id")
   )
   # instantiate usage form to be rendered in template
   usage_form = UsageForm()
-  return render(request, "tech/detail.html", { 
-    "object": tech,
+  return render(request, "main_app/tech_detail.html", { 
+    "object": tech_object,
     "usage_form": usage_form,
     "all_users": all_users,
     "unlinked_users": unlinked_users,
@@ -71,6 +75,7 @@ class UsersCreate(CreateView):
   fields = "__all__"
 class UsersUpdate(UpdateView):
   model = User
+  fields = ["age", "email", "phone"]
 class UsersDelete(DeleteView):
   model = User
   success_url = "/users/"
