@@ -11,11 +11,13 @@
         <span class="card-title">
           {{ tech.name }}
         </span>
-        <p>Brand: {{ tech.brand }}</p>
-        <p>Category: {{ tech.category }}</p>
-        <p>Release Year: {{ tech.release_year }}</p>
-        <p>Purchase Date: {{ tech.purchase_date }}</p>
-        <p>Description: {{ tech.description }}</p>
+        <div class="card-p">
+          <p>Brand: {{ tech.brand }}</p>
+          <p>Category: {{ tech.category }}</p>
+          <p>Release Year: {{ tech.release_year }}</p>
+          <p>Purchase Date: {{ tech.purchase_date }}</p>
+          <p>Description: {{ tech.description }}</p>
+        </div>
         {% if tech.working %}
           <p class="green-text">Still working!!</p>
         {% else %}

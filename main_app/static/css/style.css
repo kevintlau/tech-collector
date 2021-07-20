@@ -26,3 +26,7 @@ h1 {
 .form-card {
   padding: 0.8rem 2rem 1.6rem 2rem;
 }
+
+.card-p {
+  color: black;
+}
